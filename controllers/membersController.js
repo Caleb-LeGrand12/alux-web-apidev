@@ -28,7 +28,7 @@ export async function addMember(req, res) {
 //View a member
 export async function viewMember(req, res) {
   try {
-    let member = await Member.findAll({ where: { member_id: req.params.id } });
+    let member = await Member.findOne({ where: { member_id: req.params.id } });
     if (allmembers) {
       res.json({
         success: true,

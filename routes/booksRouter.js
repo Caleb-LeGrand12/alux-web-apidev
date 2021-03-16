@@ -11,18 +11,18 @@ import { authenticate } from "../middlewares/auth.js";
 const booksRouter = express.Router();
 
 //Add a book
-booksRouter.post("/", authenticate, addbook);
+booksRouter.post("/", authenticate, addBook);
 
 //View a book books/:id
-booksRouter.get("/:id", authenticate, viewbook);
+booksRouter.get("/:id", authenticate, viewBooks);
 
 //View all books books/
-booksRouter.get("/", authenticate, viewAllbooks);
+booksRouter.get("/", authenticate, viewAllBooks);
 
 //Update book record books/
-booksRouter.put("/", authenticate, updatebook);
+booksRouter.put("/", authenticate, updateBook);
 
 //Delete a book books/:id
-booksRouter.delete("/:id", authenticate, deletebook);
+booksRouter.delete("/:id", authenticate, deleteBook);
 
 export default booksRouter;
