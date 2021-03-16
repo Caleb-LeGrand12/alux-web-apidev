@@ -117,7 +117,6 @@ export function deleteMember(req, res) {
       res.status(200).json({
         success: true,
         message: "Member record deleted",
-        data: member,
       });
     })
     .catch((err) => {

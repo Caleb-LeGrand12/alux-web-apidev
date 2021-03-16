@@ -79,12 +79,54 @@ export async function viewAllBooks(req, res) {
 
 //Update Book record
 export function updateBook(req, res) {
-  console.log(req.body);
-  res.send(req.body);
+  let updatedOps = {};
+  const id = req.params.member_id;
+  for (const ops of req.body) {
+    updatedOps[ops.propName] = ops.value;
+  }
+
+  book
+    .updateOne({ book_id: id }, { $set: updatedOps })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: "Member record updated",
+        data: book,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        err: err,
+        message: "Oopss! Something is wrong...",
+      });
+    });
 }
 
 //Delete a Book
 export function deleteBook(req, res) {
-  console.log(req.body);
-  res.send(req.body);
+  const updatedOps = {};
+  const id = req.params.member_id;
+
+  book
+    .remove({ book_id: id })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: "Member record deleted",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        err: err,
+        message: "Oopss! Something is wrong...",
+      });
+    });
 }
