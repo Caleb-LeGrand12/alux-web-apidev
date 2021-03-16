@@ -12,7 +12,7 @@
     "Bookclub",
     "API"
   ],
-  "author": "Bobson Rugambwa",
+  "author": "Caleb Mugisha, Samuel Anumudu",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
