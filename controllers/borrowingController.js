@@ -1,19 +1,19 @@
-import Book from "../models/Books.model.js";
+import Borrowing from "../models/borrowing.model.js";
 
-//Add a Book
-export async function addBook(req, res) {
+//Add a book borrowing
+export async function addBorrowing(req, res) {
   try {
-    let book = await Book.create(req.body);
-    if (book) {
+    let borrowing = await Borrowing.create(req.body);
+    if (borrowing) {
       res.status(200).json({
         success: true,
-        message: "Book created successfully",
-        data: book,
+        message: "Borrowing created successfully",
+        data: borrowing,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: "Book could not be created at this time",
+        message: "Borrowing could not be created at this time",
       });
     }
   } catch (err) {
@@ -25,22 +25,22 @@ export async function addBook(req, res) {
   }
 }
 
-//View a Book
-export async function viewBook(req, res) {
+//View a borrowing
+export async function viewBorrowing(req, res) {
   try {
-    let allbooks = await Book.findAll({
-      where: { book_id: req.params.id },
+    let allborrowings = await Borrowing.findAll({
+      where: { borrowing_id: req.params.id },
     });
-    if (allbooks) {
+    if (allborrowings) {
       res.json({
         success: true,
-        message: "Book records retrieved successfully",
-        data: allbooks,
+        message: "Borrowing records retrieved successfully",
+        data: allborrowings,
       });
     } else {
       res.json({
         success: true,
-        message: "No Book records found.",
+        message: "No Borrowing records found.",
       });
     }
   } catch (err) {
@@ -52,20 +52,20 @@ export async function viewBook(req, res) {
   }
 }
 
-//View all Books
-export async function viewAllBooks(req, res) {
+//View all borrowings
+export async function viewAllBorrowings(req, res) {
   try {
-    let allbooks = await Book.findAll();
-    if (allbooks) {
+    let allborrowings = await Borrowing.findAll();
+    if (allborrowings) {
       res.json({
         success: true,
-        message: "Book records retrieved successfully",
-        data: allbooks,
+        message: "Borrowing records retrieved successfully",
+        data: allborrowings,
       });
     } else {
       res.json({
         success: true,
-        message: "No Book records found.",
+        message: "No Borrowing records found.",
       });
     }
   } catch (err) {
@@ -77,23 +77,23 @@ export async function viewAllBooks(req, res) {
   }
 }
 
-//Update Book record
-export function updateBook(req, res) {
+//Update borrowing record
+export function updateBorrowing(req, res) {
   let updatedOps = {};
-  const id = req.params.book_id;
+  const id = req.params.borrow_id;
   for (const ops of req.body) {
     updatedOps[ops.propName] = ops.value;
   }
 
   book
-    .updateOne({ book_id: id }, { $set: updatedOps })
+    .updateOne({ borrow_id: id }, { $set: updatedOps })
     .exec()
     .then((result) => {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "book record updated",
-        data: book,
+        message: "book borrow record updated",
+        data: borrowing,
       });
     })
     .catch((err) => {
@@ -106,18 +106,18 @@ export function updateBook(req, res) {
     });
 }
 
-//Delete a Book
-export function deleteBook(req, res) {
-  const id = req.params.book_id;
+//Delete a borrowing
+export function deleteBorrowing(req, res) {
+  const id = req.params.borrow_id;
 
   book
-    .remove({ book_id: id })
+    .remove({ borrow_id: id })
     .exec()
     .then((result) => {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "book record deleted",
+        message: "book borrowed record deleted",
       });
     })
     .catch((err) => {
