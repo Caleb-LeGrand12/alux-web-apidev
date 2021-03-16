@@ -80,7 +80,7 @@ export async function viewAllBooks(req, res) {
 //Update Book record
 export function updateBook(req, res) {
   let updatedOps = {};
-  const id = req.params.member_id;
+  const id = req.params.book_id;
   for (const ops of req.body) {
     updatedOps[ops.propName] = ops.value;
   }
@@ -92,7 +92,7 @@ export function updateBook(req, res) {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "Member record updated",
+        message: "book record updated",
         data: book,
       });
     })
@@ -108,8 +108,7 @@ export function updateBook(req, res) {
 
 //Delete a Book
 export function deleteBook(req, res) {
-  const updatedOps = {};
-  const id = req.params.member_id;
+  const id = req.params.book_id;
 
   book
     .remove({ book_id: id })
@@ -118,7 +117,7 @@ export function deleteBook(req, res) {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "Member record deleted",
+        message: "book record deleted",
       });
     })
     .catch((err) => {

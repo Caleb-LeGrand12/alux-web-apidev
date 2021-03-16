@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-const Books = sequelize.define(
+const Borrowing = sequelize.define(
   "borrowing",
   {
     borrow_id: {
@@ -21,17 +21,16 @@ const Books = sequelize.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
-
-    isbn: {
-      type: Sequelize.STRING(255),
-      allowNull: false,
-    },
     no_of_copies: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    genre: {
-      type: Sequelize.STRING(255),
+    date_borrowed: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    date_return: {
+      type: Sequelize.DATE,
       allowNull: false,
     },
   },
@@ -44,10 +43,10 @@ const Books = sequelize.define(
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
-        fields: [{ name: "book_id" }],
+        fields: [{ name: "borrow_id" }],
       },
     ],
   }
 );
 
-export default Books;
+export default Borrowing;

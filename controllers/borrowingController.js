@@ -79,12 +79,53 @@ export async function viewAllBorrowings(req, res) {
 
 //Update borrowing record
 export function updateBorrowing(req, res) {
-  console.log(req.body);
-  res.send(req.body);
+  let updatedOps = {};
+  const id = req.params.borrow_id;
+  for (const ops of req.body) {
+    updatedOps[ops.propName] = ops.value;
+  }
+
+  book
+    .updateOne({ borrow_id: id }, { $set: updatedOps })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: "book borrow record updated",
+        data: borrowing,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        err: err,
+        message: "Oopss! Something is wrong...",
+      });
+    });
 }
 
 //Delete a borrowing
 export function deleteBorrowing(req, res) {
-  console.log(req.body);
-  res.send(req.body);
+  const id = req.params.borrow_id;
+
+  book
+    .remove({ borrow_id: id })
+    .exec()
+    .then((result) => {
+      console.log(result);
+      res.status(200).json({
+        success: true,
+        message: "book borrowed record deleted",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        success: false,
+        err: err,
+        message: "Oopss! Something is wrong...",
+      });
+    });
 }

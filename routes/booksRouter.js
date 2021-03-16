@@ -2,7 +2,7 @@ import express from "express";
 import {
   addBook,
   viewAllBooks,
-  viewBooks,
+  viewBook,
   updateBook,
   deleteBook,
 } from "../controllers/booksController.js";
@@ -14,7 +14,7 @@ const booksRouter = express.Router();
 booksRouter.post("/", authenticate, addBook);
 
 //View a book books/:id
-booksRouter.get("/:id", authenticate, viewBooks);
+booksRouter.get("/:id", authenticate, viewBook);
 
 //View all books books/
 booksRouter.get("/", authenticate, viewAllBooks);
