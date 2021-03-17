@@ -1,19 +1,19 @@
-import Member from "../models/members.model.js";
+import Borrowing from "../models/borrowing.model.js";
 
-//Add a Member
-export async function addMember(req, res) {
+//Add a book borrowing
+export async function addBorrowing(req, res) {
   try {
-    let member = await Member.create(req.body);
-    if (member) {
+    let borrowing = await Borrowing.create(req.body);
+    if (borrowing) {
       res.status(200).json({
         success: true,
-        message: "Member created successfully",
-        data: member,
+        message: "Borrowing created successfully",
+        data: borrowing,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: "Member could not be created at this time",
+        message: "Borrowing could not be created at this time",
       });
     }
   } catch (err) {
@@ -25,20 +25,22 @@ export async function addMember(req, res) {
   }
 }
 
-//View a member
-export async function viewMember(req, res) {
+//View a borrowing
+export async function viewBorrowing(req, res) {
   try {
-    let member = await Member.findOne({ where: { member_id: req.params.id } });
-    if (allmembers) {
+    let allborrowings = await Borrowing.findAll({
+      where: { borrowing_id: req.params.id },
+    });
+    if (allborrowings) {
       res.json({
         success: true,
-        message: "Member records retrieved successfully",
-        data: member,
+        message: "Borrowing records retrieved successfully",
+        data: allborrowings,
       });
     } else {
       res.json({
         success: true,
-        message: "No Member records found.",
+        message: "No Borrowing records found.",
       });
     }
   } catch (err) {
@@ -50,20 +52,20 @@ export async function viewMember(req, res) {
   }
 }
 
-//View all members
-export async function viewAllMembers(req, res) {
+//View all borrowings
+export async function viewAllBorrowings(req, res) {
   try {
-    let allmembers = await Member.findAll();
-    if (allmembers) {
+    let allborrowings = await Borrowing.findAll();
+    if (allborrowings) {
       res.json({
         success: true,
-        message: "Member records retrieved successfully",
-        data: allmembers,
+        message: "Borrowing records retrieved successfully",
+        data: allborrowings,
       });
     } else {
       res.json({
         success: true,
-        message: "No Member records found.",
+        message: "No Borrowing records found.",
       });
     }
   } catch (err) {
@@ -75,23 +77,23 @@ export async function viewAllMembers(req, res) {
   }
 }
 
-//Update member record
-export function updateMember(req, res) {
+//Update borrowing record
+export function updateBorrowing(req, res) {
   let updatedOps = {};
-  const id = req.params.member_id;
+  const id = req.params.borrow_id;
   for (const ops of req.body) {
     updatedOps[ops.propName] = ops.value;
   }
 
-  member
-    .updateOne({ member_id: id }, { $set: updatedOps })
+  book
+    .updateOne({ borrow_id: id }, { $set: updatedOps })
     .exec()
     .then((result) => {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "Member record updated",
-        data: member,
+        message: "book borrow record updated",
+        data: borrowing,
       });
     })
     .catch((err) => {
@@ -104,19 +106,18 @@ export function updateMember(req, res) {
     });
 }
 
-//Delete a member
-export function deleteMember(req, res) {
-  const updatedOps = {};
-  const id = req.params.member_id;
+//Delete a borrowing
+export function deleteBorrowing(req, res) {
+  const id = req.params.borrow_id;
 
-  member
-    .remove({ member_id: id })
+  book
+    .remove({ borrow_id: id })
     .exec()
     .then((result) => {
       console.log(result);
       res.status(200).json({
         success: true,
-        message: "Member record deleted",
+        message: "book borrowed record deleted",
       });
     })
     .catch((err) => {

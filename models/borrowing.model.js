@@ -1,13 +1,17 @@
 const Sequelize = require("sequelize");
 
-const Books = sequelize.define(
-  "book",
+const Borrowing = sequelize.define(
+  "borrowing",
   {
-    book_id: {
+    borrow_id: {
       autoIncrement: true,
       type: Sequelize.BIGINT,
       allowNull: false,
       primaryKey: true,
+    },
+    member_name: {
+      type: Sequelize.STRING(255),
+      allowNull: false,
     },
     title: {
       type: Sequelize.STRING(255),
@@ -17,36 +21,32 @@ const Books = sequelize.define(
       type: Sequelize.STRING(255),
       allowNull: false,
     },
-    publish_date: {
-      type: Sequelize.DATEONLY,
-      allowNull: false,
-    },
-    isbn: {
-      type: Sequelize.STRING(255),
-      allowNull: false,
-    },
     no_of_copies: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    genre: {
-      type: Sequelize.STRING(255),
+    date_borrowed: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    date_return: {
+      type: Sequelize.DATE,
       allowNull: false,
     },
   },
   {
     sequelize,
-    tableName: "books",
+    tableName: "borrowed",
     timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
-        fields: [{ name: "book_id" }],
+        fields: [{ name: "borrow_id" }],
       },
     ],
   }
 );
 
-export default Books;
+export default Borrowing;

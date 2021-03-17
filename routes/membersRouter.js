@@ -1,6 +1,12 @@
 import express from "express";
-import { addMember, viewAllMembers, viewMember, updateMember, deleteMember } from '../controllers/membersController.js'
-import { authenticate } from '../middlewares/auth.js';
+import {
+  addMember,
+  viewAllMembers,
+  viewMember,
+  updateMember,
+  deleteMember,
+} from "../controllers/membersController.js";
+import { authenticate } from "../middlewares/auth.js";
 
 const membersRouter = express.Router();
 
@@ -13,16 +19,10 @@ membersRouter.get("/:id", authenticate, viewMember);
 //View all members members/
 membersRouter.get("/", authenticate, viewAllMembers);
 
-//Update member record members/
-membersRouter.put("/", authenticate, updateMember);
+//Update member record members/:id
+membersRouter.put("/:id", authenticate, updateMember);
 
 //Delete a member members/:id
 membersRouter.delete("/:id", authenticate, deleteMember);
 
 export default membersRouter;
-
-
-
-
-
-
